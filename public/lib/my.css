@@ -1,0 +1,207 @@
+
+@keyframes fade {
+  from {
+    opacity: 1.0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+.shan {
+  background: #28d2e1;
+  animation: fade 600ms infinite;
+}
+
+
+@media print {
+    @page {
+        size: autoi;
+        width:21cm;
+        margin-top: 10mm;
+        margin-left: 0mm;
+        margin-right: 0mm;
+        margin-bottom: 0mm;
+    }
+.hidden-print {display:none;}
+}
+@media screen{.hidden-screen{display:none!important}}
+
+.left0 {
+margin-left:0px;
+}
+.marquee {
+    width: 450px;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    animation: marquee 50s linear infinite;
+}
+
+.marquee:hover {
+    animation-play-state: paused
+}
+
+/* Make it move */
+@keyframes marquee {
+    0%   { text-indent: 27.5em }
+    100% { text-indent: -105em }
+}
+
+h2 {
+    FONT-FAMILY: 黑体;
+    font-size: 12pt;
+    text-align:center;
+  }
+body,table td {
+    FONT-FAMILY: 宋体;
+    FONT-SIZE: 12px;
+    LINE-HEIGHT: 14px;
+    background-attachment: fixed;
+    //word-break:break-all;
+          padding:1px;
+  }
+      table.k,table.k table,table.k1 table {
+          margin:2px;
+          border-collapse:collapse;
+          border:solid #000;
+          border-width:1px 0 0 1px;
+          padding:1px;
+       }
+       table.k th, table.k td ,tr.k td{
+          border:solid #000;
+          border-width:0 1px 1px 0;
+       }
+select {
+    BORDER-BOTTOM: black 1px solid;
+    BORDER-LEFT: black 1px solid;
+    BORDER-RIGHT: black 1px solid;
+    BORDER-TOP: black 1px solid;
+    FONT-SIZE: 12px;
+  }
+.nowrap {white-space: nowrap;}
+.input {
+    border-top:1px;
+    border-left:1px;
+    border-right:1px;
+    border-bottom:1px;
+    border-style:outset;
+    background-color:#ffffff;
+    vertical-align:text-bottom;
+    font-size:12px;
+  }
+.red {color:#FF0000;}
+.blue {color:blue;}
+.xm { color:red;}
+.input2 {
+    border-left: 1px solid rgb(255,255,204);
+    border-right: 1px solid rgb(255,255,204);
+    border-top: 1px solid rgb(255,255,204);
+    border-bottom:1px solid rgb(0,0 ,255);
+    font-size: 12px;
+    background:#dddddd;
+  }
+
+.spanclick{
+    cursor:pointer;
+   border-bottom:1px solid rgb(128,128,128);
+    color:blue;
+    display:inline;
+ }
+.inputjine {
+    border-left: 1px solid rgb(0,0,0);
+    border-right: 1px solid rgb(0,0,0);
+    border-top: 1px solid rgb(0,0,0);
+    border-bottom:1px solid rgb(0,0,0);
+    font-size: 12px;
+    width : 75px;
+    text-align: right;
+  }
+
+.xiangxi {
+ display:none;
+}
+.hidedisp {
+ display:none;
+}
+.d-none {
+ display:none;
+}
+.cancel {
+   text-decoration: line-through;
+  }
+
+A:active {
+    COLOR: red;
+    FONT-SIZE: 12px;
+    TEXT-DECORATION: none;
+  }
+
+A:hover {
+    text-decoration: none;
+    position: relative;
+    top: 1.5px;
+    left: 1.5px;
+  }
+
+A:link {
+    COLOR: #0000ff;
+    FONT-SIZE: 12px;
+    TEXT-DECORATION: none;
+  }
+
+A.o:active {
+    COLOR: red;
+    FONT-SIZE: 12px;
+    TEXT-DECORATION: underline;
+  }
+
+A.o:hover {
+    COLOR: red;
+    FONT-SIZE: 12px;
+    TEXT-DECORATION: overline underline;
+  }
+
+A.o:link {
+    COLOR: black;
+    FONT-SIZE: 12px;
+    TEXT-DECORATION: none;
+  }
+
+.boxc {
+ padding:4px;
+ margin:2px 15px 10px 2px;
+ -moz-box-shadow: black 10px 5px 5px;
+ box-shadow: black 10px 5px 5px;
+ -moz-border-radius: 5px 5px 0 0;
+ BORDER-top: 1px solid rgb(0,0,0);
+ BORDER-bottom: 1px solid rgb(0,0,0);
+ BORDER-left: 1px solid rgb(0,0,0);
+ BORDER-right: 1px solid rgb(0,0,0);
+}
+.box {
+ padding:4px;
+ margin:2px 15px 10px 2px;
+ -moz-box-shadow: black 10px 5px 5px;
+ box-shadow: black 10px 5px 5px;
+ -moz-border-radius: 5px 5px 0 0;
+    BORDER-top: 1px solid rgb(0,0,0);
+    BORDER-bottom: 1px solid rgb(0,0,0);
+    BORDER-left: 1px solid rgb(0,0,0);
+    BORDER-right: 1px solid rgb(0,0,0);
+}
+.box:hover {
+ padding:4px;
+ margin:2px 15px 10px 2px;
+ -moz-box-shadow: black 7px 3px 3px;
+ box-shadow: black 7px 3px 3px;
+    BORDER-top: 1px solid rgb(0,0,0);
+    BORDER-bottom: 1px solid rgb(0,0,0);
+    BORDER-left: 1px solid rgb(0,0,0);
+    BORDER-right: 1px solid rgb(0,0,0);
+}
+

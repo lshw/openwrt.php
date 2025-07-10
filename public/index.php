@@ -1,4 +1,11 @@
 <?php
-include '../function.php';
-$value=$db->fetch_one_assoc("select '12345' 字段1, '114514' 字段2 ");
-echo json_encode($value, JSON_UNESCAPED_UNICODE);
+include __DIR__.'/../function.php';
+$re=$db->query("select * from hosts ");
+while($host=$db->fetch_assoc($re)) {
+if(empty($host['user']))
+$host['user']="root";
+if(empty($host['passwd']))
+$host['passwd']="admin";
+$lines.=temp('hosts_line');
+}
+disp('hosts');
