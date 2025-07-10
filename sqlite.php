@@ -15,7 +15,12 @@ if (empty($db)) {
         {
             return $result->fetchArray(SQLITE3_ASSOC);
         }
-        public function query($sql): SQLite3Result|false 
+        public function close()
+        {
+            $this->is_open = false;
+            return parent::close();
+        }
+        public function query($sql): SQLite3Result|false
         {
             if ($this->is_open == false) {
                 $this->db_name = __DIR__."/hosts.sqlite3";
@@ -36,6 +41,7 @@ login_time TIMESTAMP, -- comment '登陆时间',
 hostname varchar(100), -- comment '名称',
 model varchar(20), -- comment '型号',
 ver varchar(100), -- comment 'rom版本',
+soft varchar(20), -- comment '软件',
 wan varchar(20), -- comment 'wan口设备',
 lan1 varchar(20), -- comment 'lan1口设备',
 lan2 varchar(20), -- comment 'lan2口设备',

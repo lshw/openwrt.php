@@ -2,10 +2,13 @@
 error_reporting(E_ALL & ~E_WARNING);
 $charset='UTF-8';
 $rootdir = __DIR__;
-if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+$host; //站点信息
+global $host;
+if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
             $https="https";
-else
-            $https="http";
+} else {
+    $https="http";
+}
 $rooturl="${https}://$_SERVER[HTTP_HOST]";
 if ($_SERVER['HTTPS']=='on') {
     $https='https://';
@@ -21,9 +24,91 @@ if (PHP_SAPI === 'cli-server' && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 
 
 include "$rootdir/sqlite.php";
 
-function ubus_init($id)
+function ubus_post($json)
 {
-#global $db;
+    global $host;
+    $ch = curl_init("http://$host[host]/ubus");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return json_decode($response, true);
+}
+
+function ubus_login()
+{
+    global $host, $db;
+    $json=temp('ubus_login');
+    $ar=ubus_post($json)['result'];
+    if ($ar[0] != 0) {
+        goback("登陆错误,$json $host[user]");
+    }
+    $host['token']=$ar[1]['ubus_rpc_session'];
+    $db->query("update hosts set token='$host[token]',login_time = datetime('now') where id='$host[id]'");
+    $db->exec('COMMIT');
+    $db->close();
+}
+
+function ubus($object, $method, $argu = '')
+{
+    global $host, $argu;
+    if ($host['token'] =='' || $host['login_time'] < date('Y-m-d H:i:s', time() - 3600)) {
+        ubus_login($host);
+    }
+    $host['object'] = $object;
+    $host['method'] = $method;
+    $host['argu'] = $argu;
+    $json=temp('ubus');
+    echo "$object,$method,$json";
+    $ar=ubus_post($json);
+    if (isset($ar['error']['message'])) {
+        ubus_login($host);
+        $json=temp('ubus');
+        $ar=ubus_post($json);
+    }
+    return $ar['result'];
+}
+function update_system($id)
+{
+    global $db, $host;
+    $host=$db->fetch_one_assoc("select * from hosts where id='$id'");
+    if ($host['user']=='') {
+        $host['user']='root';
+    }
+    if ($host['passwd']=='') {
+        $host['passwd']='admin';
+    }
+    $ret=ubus('system', 'board');
+    if ($ret[0] != 0) {
+        goback("错误 $ret");
+    }
+    $ret = $ret[1];
+/*
+ [1] => Array
+                (
+                    [kernel] => 6.6.93
+                    [hostname] => bei_xi_2_42
+                    [system] => Atheros AR7161 rev 2
+                    [model] => Netgear WNDR3800CH
+                    [board_name] => netgear,wndr3800ch
+                    [rootfs_type] => squashfs
+                    [release] => Array
+                        (
+                            [distribution] => OpenWrt
+                            [version] => 24.10.2
+                            [revision] => r28739-d9340319c6
+                            [target] => ath79/generic
+                            [description] => OpenWrt 24.10.2 r28739-d9340319c6
+                            [builddate] => 1750711236
+                        )
+
+                )
+*/
+    $release = $ret['release'];
+    $db->query("update hosts set hostname='$ret[hostname]',model='$ret[model]',soft='$release[distribution]',ver='$release[version]' where id='$host[id]'");
+    $db->close();
 }
 function temp($filename, $zhushi = 1, $rand = '1')
 {
@@ -41,11 +126,16 @@ function temp($filename, $zhushi = 1, $rand = '1')
     }
 }
 
-function disp($temp='',$temp1=''){
-echo temp('head');
-if($temp!='') echo temp($temp);
-if($temp1!='') echo temp($temp1);
-echo temp('bottom');
+function disp($temp = '', $temp1 = '')
+{
+    echo temp('head');
+    if ($temp!='') {
+        echo temp($temp);
+    }
+    if ($temp1!='') {
+        echo temp($temp1);
+    }
+    echo temp('bottom');
 }
 
 
@@ -137,5 +227,3 @@ function gotodelay($url = '', $time = 0, $msg = '')
     }
     exit();
 }
-
-
