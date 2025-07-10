@@ -23,7 +23,7 @@ if (empty($db)) {
                     $this->open($this->db_name);
                     $this->exec("CREATE TABLE IF NOT EXISTS hosts (
 id INTEGER PRIMARY KEY  AUTOINCREMENT,
-office int(11) comment '地点编号‘,
+office int(11) comment '地点编号',
 createtime TIMESTAMP comment ’建立日期',
 host varchar(100) comment '地址',
 port int(11) comment '端口',
