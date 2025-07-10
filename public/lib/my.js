@@ -15,3 +15,17 @@ else  return false;
     }
 }
 
+function gotoif(url,msg)
+{
+    if (url!='') {
+        if (msg!='') {
+            if (confirm(msg)) {
+                location.replace(url);
+            }
+        } else {
+            location.replace(url);
+        }
+    }
+}
+
+
