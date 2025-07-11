@@ -61,7 +61,6 @@ function ubus($object, $method, $argu = '')
     $host['method'] = $method;
     $host['argu'] = $argu;
     $json=temp('ubus');
-    echo "$object,$method,$json";
     $ar=ubus_post($json);
     if (isset($ar['error']['message'])) {
         ubus_login($host);
@@ -74,12 +73,7 @@ function update_system($id)
 {
     global $db, $host;
     $host=$db->fetch_one_assoc("select * from hosts where id='$id'");
-    if ($host['user']=='') {
-        $host['user']='root';
-    }
-    if ($host['passwd']=='') {
-        $host['passwd']='admin';
-    }
+    $host['cmd'] = 'call';
     $ret=ubus('system', 'board');
     if ($ret[0] != 0) {
         goback("错误 $ret");
@@ -143,6 +137,9 @@ function get_str(&$string)
 {
 //解决一下字符串的注入问题
     global $_getstr;
+    if (empty($string)) {
+        return $string;
+    }
     if ($_getstr["_$string"]==1) {
         return $string ; //已经处理过的
     }

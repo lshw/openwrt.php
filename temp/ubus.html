@@ -1,13 +1,11 @@
 {
   "jsonrpc": "2.0",
   "id": 2,
-  "method": "call",
+  "method": "$host[cmd]",
   "params": [
     "$host[token]",
     "$host[object]",
     "$host[method]",
-    {
-     $host[argu]
-    }
+    { $host[argu] }
   ]
 }

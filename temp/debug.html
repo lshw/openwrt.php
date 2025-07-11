@@ -1,0 +1,27 @@
+调试页面<br>
+编号:$host[id]<br>
+地址:<span class=blue onclick=modi("$rooturl/modi_host.php?goback=$goback&id=$host[id]&field=host&data=","修改设备地址","$host[host]");>
+$host[host]</span><br>
+用户名:$host[user]<br>
+密码:$host[passwd]<br>
+令牌:$host[token]<br>
+主机名:$host[hostname]<br>
+型号:$host[model]<br>
+软件:$host[soft]<br>
+版本:$host[ver]<br>
+<form action="$rooturl/debug.php" method="get">
+<input type=hidden name=id value='$host[id]'>
+http://$host[host]/ubus?object=<input type=text value='$_GET[object]' name=object id=object>&method=<input type=text value='$_GET[method]' name=method id=method>&argu=<input type=text value='$_GET[argu]' name=argu id=argu>
+<input type=submit value=call name=cmd>
+<input type=submit value=list name=cmd>
+</form>
+<hr>
+发送:
+<pre>
+$send
+</pre>
+<hr>
+接收:
+<pre>
+$ret
+</pre>

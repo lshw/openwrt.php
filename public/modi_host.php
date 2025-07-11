@@ -11,6 +11,9 @@ if ($_GET['id'] != '0') {
 }
 switch ($_GET['field']) {
     case 'host':
+        if (strpos($_GET['data'], ':') and $_GET['data'][0] != '[') {
+            $_GET['data'] = "[$_GET[data]]";
+        }
         if ($_GET['id']=='0') {
             $host=$db->fetch_one_assoc("select * from hosts where host='$_GET[data]'");
             if (!empty($host['id'])) {
@@ -24,7 +27,15 @@ switch ($_GET['field']) {
     case 'user':
     case 'passwd':
         $db->query("update hosts set `$_GET[field]`='$_GET[data]' where id='$_GET[id]'");
+        $host[$_GET['field']] = $_GET['data'];
 }
-$db->exec('COMMIT');
+if ($_GET['field'] == 'passwd') {
+    if ($host['token'] == '') {
+        ubus_login();
+    }
+    if ($host['model'] == '') {
+        update_system($host['id']);
+    }
+}
 $db->close();
-goback("ok");
+goback();

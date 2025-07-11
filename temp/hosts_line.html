@@ -1,6 +1,6 @@
 <tr>
 <td title=id>$host[id]</td>
-<td title=host class='blue' onclick=gotoif("$rooturl/update.php?goback=$goback&id=$host[id]&action=system","刷新数据?")>$host[host]<img src=$rooturl/images/arrow-repeat.svg></td>
+<td title=host class='blue' ><span class=blue onclick=gotoif("$rooturl/update.php?goback=$goback&id=$host[id]&action=system","刷新数据?")><img src=$rooturl/images/arrow-repeat.svg></span><a href=$rooturl/debug.php?id=$host[id]&goback=$goback>$host[host]</a></td>
 <td title=user class='blue' onclick=modi("$rooturl/modi_host.php?goback=$goback&id=$host[id]&field=user&data=","修改用户名","$host[user]")>$host[user]</td>
 <td title=passwd class='blue' onclick=modi("$rooturl/modi_host.php?goback=$goback&id=$host[id]&field=passwd&data=","修改密码","$host[passwd]")>$host[passwd0]</td>
 <td title=token>$host[token]</td>
