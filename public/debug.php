@@ -2,7 +2,7 @@
 include __DIR__."/../function.php";
 get_str($_GET['id']);
 get_str($_GET['cmd']);
-//get_str($_GET['argu']);
+//get_str($_GET['arg']);
 get_str($_GET['method']);
 get_str($_GET['object']);
 if ($_GET['id'] != '0') {

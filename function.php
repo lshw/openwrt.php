@@ -65,15 +65,15 @@ function ubus_login()
     $db->close();
 }
 
-function ubus($object, $method, $argu = '')
+function ubus($object, $method, $arg = '')
 {
-    global $host, $argu;
+    global $host, $arg;
     if ($host['token'] =='' || $host['login_time'] < date('Y-m-d H:i:s', time() - 3600)) {
         ubus_login($host);
     }
     $host['object'] = $object;
     $host['method'] = $method;
-    $host['argu'] = $argu;
+    $host['arg'] = $arg;
     $json=temp('ubus');
     $ar=ubus_post($json);
     return $ar['result'];

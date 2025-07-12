@@ -11,7 +11,7 @@ $host[host]</span><br>
 版本:$host[ver]<br>
 <form action="$rooturl/debug.php" method="get">
 <input type=hidden name=id value='$host[id]'>
-http://$host[host]/ubus?object=<input type=text value='$_GET[object]' name=object id=object>&method=<input type=text value='$_GET[method]' name=method id=method>&argu=<input type=text value='$_GET[argu]' name=argu id=argu>
+http://$host[host]/ubus?object=<input type=text value='$_GET[object]' name=object>&method=<input type=text value='$_GET[method]' name=method>&arg=<input type=text value='$_GET[arg]' name=arg>
 <input type=submit value=call name=cmd>
 <input type=submit value=list name=cmd>
 </form>
