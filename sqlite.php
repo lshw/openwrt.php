@@ -15,10 +15,13 @@ if (empty($db)) {
         {
             return $result->fetchArray(SQLITE3_ASSOC);
         }
-        public function close()
+        public function close(): bool
         {
-            $this->is_open = false;
-            return parent::close();
+            if($this->is_open) {
+                 $this->is_open = false;
+                 return parent::close();
+            }
+	    return true;
         }
         public function query($sql): SQLite3Result|false
         {
