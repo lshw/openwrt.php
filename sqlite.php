@@ -17,11 +17,11 @@ if (empty($db)) {
         }
         public function close(): bool
         {
-            if($this->is_open) {
+            if ($this->is_open) {
                  $this->is_open = false;
                  return parent::close();
             }
-	    return true;
+            return true;
         }
         public function query($sql): SQLite3Result|false
         {

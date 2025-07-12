@@ -27,6 +27,20 @@ include "$rootdir/sqlite.php";
 function ubus_post($json)
 {
     global $host;
+    $ret=ubus_post_($json);
+    if (isset($ret['error']['code']) and $ret['error']['code'] == -32002) {
+        $host['token_old'] = $host['token'];
+        ubus_login();
+        if (strlen($host['token_old']) > 10) {
+            $json = strtr($json, array($host['token_old'] => $host['token']));
+        }
+        return ubus_post_($json);
+    }
+    return $ret;
+}
+function ubus_post_($json)
+{
+    global $host;
     $ch = curl_init("http://$host[host]/ubus");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 3);
@@ -34,7 +48,6 @@ function ubus_post($json)
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     $response = curl_exec($ch);
     curl_close($ch);
-
     return json_decode($response, true);
 }
 
@@ -42,7 +55,7 @@ function ubus_login()
 {
     global $host, $db;
     $json=temp('ubus_login');
-    $ar=ubus_post($json)['result'];
+    $ar=ubus_post_($json)['result'];
     if ($ar[0] != 0) {
         goback("登陆错误,$json $host[user]");
     }
@@ -63,11 +76,6 @@ function ubus($object, $method, $argu = '')
     $host['argu'] = $argu;
     $json=temp('ubus');
     $ar=ubus_post($json);
-    if (isset($ar['error']['message'])) {
-        ubus_login($host);
-        $json=temp('ubus');
-        $ar=ubus_post($json);
-    }
     return $ar['result'];
 }
 function update_system($id)

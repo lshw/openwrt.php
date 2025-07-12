@@ -16,8 +16,8 @@ if ($_GET['id'] != '0') {
         $host['argu']=$_GET['argu'];
         $host['cmd']=$_GET['cmd'];
         $send=temp('ubus');
-        $ret=ubus_post($send);
-        $ret=print_r($ret, 1);
+        $ret0=ubus_post($send);
+        $ret=print_r($ret0, 1);
     }
 }
 disp('debug');
