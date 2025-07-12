@@ -10,3 +10,6 @@ cd ~
 git clone https://github.com/lshw/openwrt.php  
 cd openwrt.php  
 ./run.sh  
+
+![image](https://github.com/lshw/openwrt.php/blob/master/hosts.webp)  
+![image](https://github.com/lshw/openwrt.php/blob/master/debug.webp)  
