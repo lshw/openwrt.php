@@ -13,11 +13,16 @@ if ($_GET['id'] != '0') {
     if (!empty($_GET['object']) && !empty($_GET['method'])) {
         $host['object']=$_GET['object'];
         $host['method']=$_GET['method'];
-        $host['argu']=$_GET['argu'];
+        $host['arg']=$_GET['arg'];
         $host['cmd']=$_GET['cmd'];
         $send=temp('ubus');
         $ret0=ubus_post($send);
         $ret=print_r($ret0, 1);
     }
+}
+if (!isset($_GET['object']) and !isset($_GET['method'])) {
+    $_GET['object'] = 'system';
+    $_GET['method'] = 'info';
+    $_GET['arg'] = '';
 }
 disp('debug');

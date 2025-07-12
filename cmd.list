@@ -1,4 +1,5 @@
 ubus call network.interface dump #网络设置
 ubus call sysyem board #设备信息
-ubus call uci get "config":"wireless" #wifi设置
+ubus call uci get "config":"wireless" # /etc/config/wireless wifi设置
+ubus call uci get "config":"network" # /etc/config/network 网络设置
 ubus call iwinfo accoclist "device": "phy0-ap0" #wifi客户端清单
